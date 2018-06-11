@@ -47,13 +47,12 @@ class App extends Component {
           <Route exact path = "/" component = {Home} />
           <Route path = "/auth" component = {Auth} />
         </div>
-
-        <div className = "wrapper" >
-          <div className = "one" > <NowTrading /> </div>
-          <div className = "two" > <Sales /> </div>
-          <div className = "three" > <ChartSelect /> </div>
-          <div className = "four" > <WalletInfo /> </div>
-          <div className = "five" > Five </div>
+        <div className = "wrapper">
+          <div className = "one"> <NowTrading /> </div>
+          <div className = "two"> <Sales /> </div>
+          <div className = "three"> <ChartSelect /> </div>
+          <div className = "four"> <WalletInfo /> </div>
+          <div className = "five"> Five </div>
         </div>
       </div>
     );
@@ -61,6 +60,6 @@ class App extends Component {
 }
 
 export default connect(null, (dispatch) => ({
-    // UserActions: bindActionCreators(userActions, dispatch)
+    UserActions: bindActionCreators(userActions, dispatch)
   })
 )(App);

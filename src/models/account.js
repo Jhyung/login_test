@@ -28,6 +28,9 @@ const Account = new Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
+const { generateToken } = require('lib/token');
+
+
 Account.statics.findByuserId = function(userId) {
     // 객체에 내장되어있는 값을 사용 할 때는 객체명.키 이런식으로 쿼리하면 됩니다
     return this.findOne({'profile.userId': userId}).exec();
@@ -67,4 +70,14 @@ Account.methods.validatePassword = function(password) {
     return this.password === hashed;
 };
 
-module.exports = mongoose.model('Account', Account);
+// Account.methods.generateToken = function() {
+//     // JWT 에 담을 내용
+//     const payload = {
+//         _id: this._id,
+//         profile: this.profile
+//     };
+//
+//     return generateToken(payload, 'account');
+// };
+
+// module.exports = mongoose.model('Account', Account);
