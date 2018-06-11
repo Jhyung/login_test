@@ -26,7 +26,7 @@ class Register extends Component {
             message
         });
     }
-
+    //검증 작업
     validate = {
         email: (value) => {
             if(!isEmail(value)) {
@@ -35,7 +35,15 @@ class Register extends Component {
             }
             return true;
         },
-        username: (value) => {
+        phoneNumber: (value) => {
+            if(!isLength(value, { min: 6 })) {
+                this.setError('올바른 전화번호를 입력하세요.');
+                return false;
+            }
+            this.setError(null);
+            return true;
+        },
+        userId: (value) => {
             if(!isAlphanumeric(value) || !isLength(value, { min:4, max: 15 })) {
                 this.setError('아이디는 4~15 글자의 알파벳 혹은 숫자로 이뤄져야 합니다.');
                 return false;
@@ -47,7 +55,7 @@ class Register extends Component {
                 this.setError('비밀번호를 6자 이상 입력하세요.');
                 return false;
             }
-            this.setError(null); // 이메일과 아이디는 에러 null 처리를 중복확인 부분에서 하게 됩니다
+            this.setError(null); // 이메일과 아이디는 에러 null 처리를 중복확인 부분에서 진행
             return true;
         },
         passwordConfirm: (value) => {
@@ -74,11 +82,11 @@ class Register extends Component {
        }
    }, 300)
 
-   checkUsernameExists = debounce(async (username) => {
+   checkUserIdExists = debounce(async (userId) => {
        const { AuthActions } = this.props;
        try {
-           await AuthActions.checkUsernameExists(username);
-           if(this.props.exists.get('username')) {
+           await AuthActions.checkUserIdExists(userId);
+           if(this.props.exists.get('userId')) {
                this.setError('이미 존재하는 아이디입니다.');
            } else {
                this.setError(null);
@@ -103,19 +111,20 @@ class Register extends Component {
         if(name.indexOf('password') > -1 || !validation) return; // 비밀번호 검증이거나, 검증 실패하면 여기서 마침
 
         // TODO: 이메일, 아이디 중복 확인
-        const check = name === 'email' ? this.checkEmailExists : this.checkUsernameExists; // name 에 따라 이메일체크할지 아이디 체크 할지 결정
+        const check = name === 'email' ? this.checkEmailExists : this.checkUserIdExists; // name 에 따라 이메일체크할지 아이디 체크 할지 결정
         check(value);
     }
 
     handleLocalRegister = async () => {
         const { form, AuthActions, UserActions, error, history } = this.props;
-        const { email, username, password, passwordConfirm } = form.toJS();
+        const { email, phoneNumber, userId, password, passwordConfirm } = form.toJS();
 
         const { validate } = this;
 
         if(error) return; // 현재 에러가 있는 상태라면 진행하지 않음
         if(!validate['email'](email)
-            || !validate['username'](username)
+            || !validate['phoneNumber'](phoneNumber)
+            || !validate['userId'](userId)
             || !validate['password'](password)
             || !validate['passwordConfirm'](passwordConfirm)) {
             // 하나라도 실패하면 진행하지 않음
@@ -124,7 +133,7 @@ class Register extends Component {
 
         try {
             await AuthActions.localRegister({
-                email, username, password
+                email, phoneNumber, userId, password
             });
             const loggedInfo = this.props.result.toJS();
 
@@ -145,7 +154,7 @@ class Register extends Component {
 
     render() {
         const { error } = this.props;
-        const { email, username, password, passwordConfirm } = this.props.form.toJS();
+        const { email, phoneNumber, userId, password, passwordConfirm } = this.props.form.toJS();
         const { handleChange, handleLocalRegister } = this;
 
         return (
@@ -158,10 +167,17 @@ class Register extends Component {
                     onChange={handleChange}
                 />
                 <InputWithLabel
+                    label="전화번호"
+                    name="phoneNumber"
+                    placeholder="전화번호"
+                    value={phoneNumber}
+                    onChange={handleChange}
+                />
+                <InputWithLabel
                     label="아이디"
-                    name="username"
+                    name="userId"
                     placeholder="아이디"
-                    value={username}
+                    value={userId}
                     onChange={handleChange}
                 />
                 <InputWithLabel

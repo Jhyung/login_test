@@ -8,7 +8,7 @@ const CHANGE_INPUT = 'auth/CHANGE_INPUT'; // input 값 변경
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM'; // form 초기화
 
 const CHECK_EMAIL_EXISTS = 'auth/CHECK_EMAIL_EXISTS'; // 이메일 중복 확인
-const CHECK_USERNAME_EXISTS = 'auth/CHECK_USERNAME_EXISTS'; // 아이디 중복 확인
+const CHECK_USERID_EXISTS = 'auth/CHECK_USERID_EXISTS'; // 아이디 중복 확인
 
 const LOCAL_REGISTER = 'auth/LOCAL_REGISTER'; // 이메일 가입
 const LOCAL_LOGIN = 'auth/LOCAL_LOGIN'; // 이메일 로그인
@@ -20,9 +20,9 @@ const SET_ERROR = 'auth/SET_ERROR'; // 오류 설정
 export const changeInput = createAction(CHANGE_INPUT); //  { form, name, value }
 export const initializeForm = createAction(INITIALIZE_FORM); // form
 export const checkEmailExists = createAction(CHECK_EMAIL_EXISTS, AuthAPI.checkEmailExists); // email
-export const checkUsernameExists = createAction(CHECK_USERNAME_EXISTS, AuthAPI.checkUsernameExists); // username
+export const checkUserIdExists = createAction(CHECK_USERID_EXISTS, AuthAPI.checkUserIdExists); // userId
 
-export const localRegister = createAction(LOCAL_REGISTER, AuthAPI.localRegister); // { email, username, password }
+export const localRegister = createAction(LOCAL_REGISTER, AuthAPI.localRegister); // { email, userId, password }
 export const localLogin = createAction(LOCAL_LOGIN, AuthAPI.localLogin); // { email, password }
 
 export const logout = createAction(LOGOUT, AuthAPI.logout);
@@ -33,12 +33,14 @@ const initialState = Map({
     register: Map({
         form: Map({
             email: '',
-            username: '',
+            phoneNumber: '',
+            userId: '',
             password: '',
             passwordConfirm: ''
         }),
         exists: Map({
             email: false,
+            userId: false,
             password: false
         }),
         error: null
@@ -68,8 +70,8 @@ export default handleActions({
         return state.set(action.payload, initialForm);
     },
     ...pender({
-        type: CHECK_USERNAME_EXISTS,
-        onSuccess: (state, action) => state.setIn(['register', 'exists', 'username'], action.payload.data.exists)
+        type: CHECK_USERID_EXISTS,
+        onSuccess: (state, action) => state.setIn(['register', 'exists', 'userId'], action.payload.data.exists)
     }),
     ...pender({
         type: LOCAL_LOGIN,

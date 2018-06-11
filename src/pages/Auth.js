@@ -19,10 +19,12 @@ class Auth extends Component {
 
     render() {
         return (
+          <div>
             <AuthWrapper>
                 <Route path="/auth/login" component={Login}/>
                 <Route path="/auth/register" component={Register}/>
             </AuthWrapper>
+          </div>
         );
     }
 }

@@ -14,63 +14,53 @@ import HeaderContainer from './containers/Base/HeaderContainer';
 
 import storage from 'lib/storage';
 import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { bindActionCreators } from 'redux';
 import * as userActions from 'redux/modules/user';
-
 
 
 class App extends Component {
   initializeUserInfo = async () => {
-      const loggedInfo = storage.get('loggedInfo'); // 로그인 정보를 로컬스토리지에서 가져옵니다.
-      if(!loggedInfo) return; // 로그인 정보가 없다면 여기서 멈춥니다.
+    const loggedInfo = storage.get('loggedInfo'); // 로그인 정보 가져옴
+    if (!loggedInfo) return; // 로그인 정보가 없다면 return.
 
-      const { UserActions } = this.props;
-      UserActions.setLoggedInfo(loggedInfo);
-      try {
-          await UserActions.checkStatus();
-      } catch (e) {
-          storage.remove('loggedInfo');
-          window.location.href = '/auth/login?expired';
-      }
+    const { UserActions } = this.props;
+    UserActions.setLoggedInfo(loggedInfo);
+    try {
+      await UserActions.checkStatus();
+    } catch (e) {
+      storage.remove('loggedInfo');
+      window.location.href = '/auth/login?expired';
+    }
   }
 
   componentDidMount() {
-      this.initializeUserInfo();
+    this.initializeUserInfo();
   }
 
   render() {
-
     return (
-      <div className="App">
-      <header className="App-header">
-          TASS Draft
-        </header>
-        <div className="wrapper">
-          <div className="one"><NowTrading/></div>
-          <div className="two"><Sales/></div>
-          <div className="three"><ChartSelect/></div>
-          <div className="four"><WalletInfo/></div>
-          <div className="five">Five</div>
-        </div>
-
+      <div className = "App" >
         <div>
-          <HeaderContainer/>
-          <Route exact path="/" component={Home}/>
-          <Route parth="/autt" component={Auth}/>
+          <HeaderContainer />
         </div>
-
         <div>
-          bottom
+          <Route exact path = "/" component = {Home} />
+          <Route path = "/auth" component = {Auth} />
         </div>
 
+        <div className = "wrapper" >
+          <div className = "one" > <NowTrading /> </div>
+          <div className = "two" > <Sales /> </div>
+          <div className = "three" > <ChartSelect /> </div>
+          <div className = "four" > <WalletInfo /> </div>
+          <div className = "five" > Five </div>
+        </div>
       </div>
     );
   }
 }
 
-export default connect(
-    null,
-    (dispatch) => ({
-        UserActions: bindActionCreators(userActions, dispatch)
-    })
+export default connect(null, (dispatch) => ({
+    // UserActions: bindActionCreators(userActions, dispatch)
+  })
 )(App);

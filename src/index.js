@@ -1,11 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-
-
 import Root from './Root';
+import registerServiceWorker from './registerServiceWorker';
+import './index.css';
 import configureStore from 'redux/configureStore';
 import { AppContainer } from 'react-hot-loader';
 
@@ -27,3 +24,12 @@ if(module.hot) {
 }
 
 registerServiceWorker();
+
+const crypto = require('crypto');
+
+const password = 'abc123';
+const secret = 'MySecretKey1$1$234';
+
+const hashed = crypto.createHmac('sha256', secret).update(password).digest('hex');
+
+console.log(hashed);

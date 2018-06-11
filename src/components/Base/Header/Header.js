@@ -7,7 +7,7 @@ import { shadow, media } from 'lib/styleUtils';
 const Positioner = styled.div`
     display: flex;
     flex-direction: column;
-    position: fixed;
+    position: relative;
     top: 0px;
     width: 100%;
     ${shadow(1)}
@@ -15,7 +15,7 @@ const Positioner = styled.div`
 
 // 흰 배경, 내용 중간 정렬
 const WhiteBackground = styled.div`
-    background: white;
+    background: black;
     display: flex;
     justify-content: center;
     height: auto;
@@ -42,9 +42,9 @@ const HeaderContents = styled.div`
 
 // 로고
 const Logo = styled.div`
-    font-size: 1.4rem;
+    font-size: 3rem;
     letter-spacing: 2px;
-    color: ${oc.teal[7]};
+    color: ${oc.cyan[6]};
     font-family: 'Rajdhani';
 `;
 
@@ -56,7 +56,7 @@ const Spacer = styled.div`
 // 하단 그래디언트 테두리
 const GradientBorder = styled.div`
     height: 3px;
-    background: linear-gradient(to right, ${oc.teal[6]}, ${oc.cyan[5]});
+    background: black;
 `;
 
 const Header = ({children}) => {
@@ -64,7 +64,7 @@ const Header = ({children}) => {
         <Positioner>
             <WhiteBackground>
                 <HeaderContents>
-                    <Logo>HEURM</Logo>
+                    <Logo>Tass</Logo>
                     <Spacer/>
                     {children}
                 </HeaderContents>

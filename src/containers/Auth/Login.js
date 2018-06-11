@@ -5,20 +5,19 @@ import {bindActionCreators} from 'redux';
 import * as authActions from 'redux/modules/auth';
 import * as userActions from 'redux/modules/user';
 import storage from 'lib/storage';
-
 import queryString from 'query-string';
 
 class Login extends Component {
 
-  componentDidMount() {
-          const { location } = this.props;
-          const query = queryString.parse(location.search);
+    componentDidMount() {
+      const { location } = this.props;
+      const query = queryString.parse(location.search);
 
-          if(query.expired !== undefined) {
-              this.setError('세션에 만료되었습니다. 다시 로그인하세요.')
-          }
+      if(query.expired !== undefined) {
+          this.setError('세션에 만료되었습니다. 다시 로그인하세요.')
       }
-      
+    }
+
     handleChange = (e) => {
         const { AuthActions } = this.props;
         const { name, value } = e.target;
@@ -44,7 +43,6 @@ class Login extends Component {
         return false;
     }
 
-
     handleLocalLogin = async () => {
         const { form, AuthActions, UserActions, history } = this.props;
         const { email, password } = form.toJS();
@@ -64,7 +62,8 @@ class Login extends Component {
     }
 
     render() {
-        const { email, password } = this.props.form.toJS(); // form 에서 email 과 password 값을 읽어옴
+      // form 에서 email 과 password 값을 읽어옴
+        const { email, password } = this.props.form.toJS();
         const { handleChange, handleLocalLogin } = this;
         const { error } = this.props;
 

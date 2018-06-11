@@ -5,10 +5,10 @@ import { shadow } from 'lib/styleUtils';
 
 const Wrapper = styled.div`
     margin-top: 1rem;
-    padding-top: 0.6rem;
+    padding-top: 1rem;
     padding-bottom: 0.5rem;
 
-    background: ${oc.teal[6]};
+    background: ${oc.cyan[6]};
     color: white;
 
     text-align: center;
@@ -20,12 +20,12 @@ const Wrapper = styled.div`
     transition: .2s all;
 
     &:hover {
-        background: ${oc.teal[5]};
+        background: ${oc.cyan[6]};
         ${shadow(0)}
     }
 
     &:active {
-        background: ${oc.teal[7]};
+        background: ${oc.cyan[6]};
     }
 
 `;

@@ -4,6 +4,10 @@ import oc from 'open-color';
 import { shadow } from 'lib/styleUtils';
 import { Link } from 'react-router-dom';
 
+import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as userActions from 'redux/modules/user';
+
 // 화면의 중앙에 위치시킨다
 const Positioner = styled.div`
     position: absolute;
@@ -20,7 +24,8 @@ const ShadowedBox = styled.div`
 
 // 로고
 const LogoWrapper = styled.div`
-    background: ${oc.teal[7]};
+    margin-top: 10rem;
+    background: ${oc.cyan[6]};
     height: 5rem;
     display: flex;
     align-items: center;
@@ -40,13 +45,14 @@ const Contents = styled.div`
     background: white;
     padding: 2rem;
     height: auto;
+    text-align: left;
 `;
 
 const AuthWrapper = ({children}) => (
     <Positioner>
         <ShadowedBox>
             <LogoWrapper>
-                <Logo to="/">HEURM</Logo>
+                <Logo to="/">Tass</Logo>
             </LogoWrapper>
             <Contents>
                 {children}
@@ -55,4 +61,8 @@ const AuthWrapper = ({children}) => (
     </Positioner>
 );
 
-export default AuthWrapper;
+export default connect(
+  null, (dispatch) => ({
+    UserActions: bindActionCreators(userActions, dispatch)
+  })
+)(AuthWrapper);

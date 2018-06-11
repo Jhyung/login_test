@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux';
 import storage from 'lib/storage';
 
 
-
 class HeaderContainer extends Component {
 
     handleLogout = async () => {
@@ -24,8 +23,6 @@ class HeaderContainer extends Component {
     render() {
         const { visible, user } = this.props;
         if(!visible) return null;
-
-
 
         return (
             <Header>

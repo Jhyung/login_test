@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  
+
 }
 
 :root {
@@ -62,7 +62,7 @@
 }
 
 .wrapper {
-  display: grid; 
+  display: grid;
   grid-gap: 0px;
   grid-auto-columns: 219px;
   grid-auto-rows: 110px;
@@ -76,7 +76,7 @@
   grid-column-end: 1;
   overflow: scroll;
 }
-.two { 
+.two {
   border: 1px solid #343a40;
   background-color: #343a40;
   grid-row-start: 3;
@@ -116,6 +116,3 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
-
-
-
