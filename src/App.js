@@ -6,6 +6,7 @@ import Sales from './components/Sales';
 import NowTrading from './components/NowTrading';
 import Accounts from './components/Accounts';
 import WalletInfo from './components/WalletInfo';
+import WalletInfoChild from './components/WalletInfoChild';
 
 
 import { Route } from 'react-router-dom';
@@ -16,7 +17,9 @@ import storage from 'lib/storage';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as userActions from 'redux/modules/user';
+import * as baseActions from 'redux/modules/base';
 
+import styled from 'styled-components';
 
 class App extends Component {
   initializeUserInfo = async () => {
@@ -38,21 +41,22 @@ class App extends Component {
   }
 
   render() {
+
     return (
-      <div className = "App" >
+      <div className="App">
         <div>
-          <HeaderContainer />
+          <HeaderContainer/>
         </div>
         <div>
-          <Route exact path = "/" component = {Home} />
-          <Route path = "/auth" component = {Auth} />
+          <Route exact path="/" component={Home}/>
+          <Route path="/auth" component={Auth}/>
         </div>
-        <div className = "wrapper">
-          <div className = "one"> <NowTrading /> </div>
-          <div className = "two"> <Sales /> </div>
-          <div className = "three"> <ChartSelect /> </div>
-          <div className = "four"> <WalletInfo /> </div>
-          <div className = "five"> Five </div>
+        <div className="wrapper">
+          <div className="one"><NowTrading id = "a"/></div>
+          <div className="three"><ChartSelect/></div>
+          <div className="four"><WalletInfo/></div>
+          <div className="four_child"><WalletInfoChild/></div>
+          <div className="five"><Sales id = "a"/></div>
         </div>
       </div>
     );

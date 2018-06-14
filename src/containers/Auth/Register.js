@@ -14,10 +14,19 @@ import storage from 'lib/storage';
 
 class Register extends Component {
 
-  // componentWillUnmount() {
-  //      const { AuthActions } = this.props;
-  //      AuthActions.initializeForm('register')
-  //  }
+  constructor(props) {
+    super(props);
+    this.state={
+      registerInfo: [
+        {
+          email: null,
+          phoneNumber: null,
+          userId: null,
+          password: null,
+        }
+      ]
+    }
+  }
 
    setError = (message) => {
         const { AuthActions } = this.props;
@@ -43,6 +52,13 @@ class Register extends Component {
             this.setError(null);
             return true;
         },
+        // userName: (value) => {
+        //     if(!isAlphanumeric(value) || !isLength(value, { min:2, max: 15 })) {
+        //         this.setError('올바르게 입력하세요.');
+        //         return false;
+        //     }
+        //     return true;
+        // },
         userId: (value) => {
             if(!isAlphanumeric(value) || !isLength(value, { min:4, max: 15 })) {
                 this.setError('아이디는 4~15 글자의 알파벳 혹은 숫자로 이뤄져야 합니다.');
@@ -111,19 +127,21 @@ class Register extends Component {
         if(name.indexOf('password') > -1 || !validation) return; // 비밀번호 검증이거나, 검증 실패하면 여기서 마침
 
         // TODO: 이메일, 아이디 중복 확인
-        const check = name === 'email' ? this.checkEmailExists : this.checkUserIdExists; // name 에 따라 이메일체크할지 아이디 체크 할지 결정
+         // name 에 따라 이메일체크할지 아이디 체크 할지 결정
+        const check = name === 'email' ? this.checkEmailExists : this.checkUserIdExists;
         check(value);
     }
 
     handleLocalRegister = async () => {
         const { form, AuthActions, UserActions, error, history } = this.props;
-        const { email, phoneNumber, userId, password, passwordConfirm } = form.toJS();
+        const { email, phoneNumber, /*userName,*/ userId, password, passwordConfirm } = form.toJS();
 
         const { validate } = this;
 
         if(error) return; // 현재 에러가 있는 상태라면 진행하지 않음
         if(!validate['email'](email)
             || !validate['phoneNumber'](phoneNumber)
+            // || !validate['userName'](userName)
             || !validate['userId'](userId)
             || !validate['password'](password)
             || !validate['passwordConfirm'](passwordConfirm)) {
@@ -133,7 +151,7 @@ class Register extends Component {
 
         try {
             await AuthActions.localRegister({
-                email, phoneNumber, userId, password
+                email, phoneNumber, /*userName,*/ userId, password
             });
             const loggedInfo = this.props.result.toJS();
 
@@ -154,7 +172,7 @@ class Register extends Component {
 
     render() {
         const { error } = this.props;
-        const { email, phoneNumber, userId, password, passwordConfirm } = this.props.form.toJS();
+        const { email, phoneNumber, /*userName,*/ userId, password, passwordConfirm } = this.props.form.toJS();
         const { handleChange, handleLocalRegister } = this;
 
         return (
@@ -216,5 +234,6 @@ export default connect(
     (dispatch) => ({
         AuthActions: bindActionCreators(authActions, dispatch),
         UserActions: bindActionCreators(userActions, dispatch)
-    })
+    }),
+
 )(Register);

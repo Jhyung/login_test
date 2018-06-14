@@ -25,7 +25,7 @@ class HeaderContainer extends Component {
         if(!visible) return null;
 
         return (
-            <Header>
+            <div><Header>
                 { user.get('logged')
                     ? (<div>
                         {user.getIn(['loggedInfo', 'username'])} <div onClick={this.handleLogout}>(로그아웃)</div>
@@ -33,6 +33,8 @@ class HeaderContainer extends Component {
                     : <LoginButton/>
                 }
             </Header>
+
+            </div>
         );
     }
 }

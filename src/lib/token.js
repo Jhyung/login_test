@@ -1,6 +1,8 @@
 const jwtSecret = process.env.JWT_SECRET;
 const jwt = require('jsonwebtoken');
 
+
+
 /**
  * JWT 토큰 생성
  * @param {any} payload

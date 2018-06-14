@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import oc from 'open-color';
 import { shadow, media } from 'lib/styleUtils';
@@ -15,9 +16,9 @@ const Positioner = styled.div`
 
 // 흰 배경, 내용 중간 정렬
 const WhiteBackground = styled.div`
-    background: black;
+    background: #0f1316;
     display: flex;
-    justify-content: center;
+    padding-left: 3rem;
     height: auto;
 `;
 
@@ -30,7 +31,7 @@ const HeaderContents = styled.div`
     align-items: center;
 
     padding-right: 1rem;
-    padding-left: 1rem;
+
     ${media.wide`
         width: 992px;
     `}
@@ -41,22 +42,24 @@ const HeaderContents = styled.div`
 `;
 
 // 로고
-const Logo = styled.div`
+const Logo = styled(Link)`
+    left: 0px;
     font-size: 3rem;
     letter-spacing: 2px;
     color: ${oc.cyan[6]};
     font-family: 'Rajdhani';
 `;
 
+
 // 중간 여백
 const Spacer = styled.div`
-    flex-grow: 1;
+    flex-grow: 30;
 `;
 
 // 하단 그래디언트 테두리
 const GradientBorder = styled.div`
     height: 3px;
-    background: black;
+    background: #0f1316;
 `;
 
 const Header = ({children}) => {
@@ -64,9 +67,9 @@ const Header = ({children}) => {
         <Positioner>
             <WhiteBackground>
                 <HeaderContents>
-                    <Logo>Tass</Logo>
-                    <Spacer/>
-                    {children}
+                  <Logo to="/">Tass</Logo>
+                  <Spacer/>
+                  {children}
                 </HeaderContents>
             </WhiteBackground>
             <GradientBorder/>

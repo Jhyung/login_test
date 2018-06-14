@@ -1,108 +1,54 @@
 import React, { Component } from 'react';
 import './Sales.css';
 
-const coinList = [
-  {
-    name: "ETH",
-    img: "eth_img.jpg",
-    link_whitepaper: "https://whitepaperbtc.com"
-  },
-  {
-    name: "BTC",
-    img: "btc_img.jpg",
-    link_whitepaper: "https://whitepaperbtc.com"
-  },
-  {
-    name: "BTG",
-    img: "btg_img.jpg",
-    link_whitepaper: "https://whitepaperbtc.com"
-  },
-  {
-    name: "XRP",
-    img: "xrp_img.jpg",
-    link_whitepaper: "https://whitepaperbtc.com"
-  },
-  {
-    name: "EOS",
-    img: "eos_img.jpg",
-    link_whitepaper: "https://whitepaperbtc.com"
-  },
-  {
-    name: "LTC",
-    img: "ltc_img.jpg",
-    link_whitepaper: "https://whitepaperbtc.com"
-  },
-  {
-    name: "DOG",
-    img: "dog_img.jpg",
-    link_whitepaper: "https://whitepaperbtc.com"
-  },
-  {
-    name: "ETC",
-    img: "etc_img.jpg",
-    link_whitepaper: "https://whitepaperbtc.com"
-  },
-  {
-    name: "QTUM",
-    img: "qtum_img.jpg",
-    link_whitepaper: "https://whitepaperbtc.com"
-  }
-]
+// const botHandle = new WebSocket("ws://localhost:8080/tass/bothandle");
+const botHandle = new WebSocket("ws://localhost:8080/wsSales/bothandle");
+// const botHandle = new WebSocket("ws://45.120.65.65/wsSales/bothandle");
 
-const exchangeList = [
-  {
-    name: "BITTREX",
-    //link?
-  },
-  {
-    name: "BITHUMB"
-  },
-  {
-    name: "BINANCE"
-  },
-  {
-    name: "KORBIT"
-  },
-  {
-    name: "COINONE"
-  }
-]
-
-const unitList = [
-  "5m", "10m", "15m", "30m", "1h", "6h", "1d", "1w", "1m", "1y"
-]
+const exchangeList = ["bithumb", "bittrex", "binance", "korbit", "coinone"]
+const coinList = ["btc", "eth", "btg", "xrp", "eos", "ltc", "dog", "etc", "qtum"]
 
 class Sales extends Component {
 
   handleStartbtn = () => {
+    var sName = document.getElementById("SL_nameInputbox").value;
+    var sPrice = document.getElementById("SL_priceInputbox").value;
+    var sDeadline = document.getElementById("SL_deadlineInputbox").value;
+
     let SL_coinSelectbox = document.getElementById("SL_coinSelectbox");
-    SL_coinSelectbox = SL_coinSelectbox.options[SL_coinSelectbox.selectedIndex].text;
+    var sCoin = SL_coinSelectbox.options[SL_coinSelectbox.selectedIndex].text;
+
     let SL_exchangeSelectbox = document.getElementById("SL_exchangeSelectbox");
-    SL_exchangeSelectbox = SL_exchangeSelectbox.options[SL_exchangeSelectbox.selectedIndex].text;
+    var sExchange = SL_exchangeSelectbox.options[SL_exchangeSelectbox.selectedIndex].text;
+
     let SL_strategySelectbox = document.getElementById("SL_strategySelectbox");
-    SL_strategySelectbox = SL_strategySelectbox.options[SL_strategySelectbox.selectedIndex].text;
-    let SL_priceInputbox = document.getElementById("SL_priceInputbox");
-    //SL_priceInputbox = SL_priceInputbox.text;
-    let SL_deadlineInputbox = document.getElementById("SL_deadlineInputbox");
-    //SL_deadlineInputbox = SL_deadlineInputbox.text;
+    var sStrategy = SL_strategySelectbox.options[SL_strategySelectbox.selectedIndex].text;
 
-    let string = SL_coinSelectbox + '\n' + SL_exchangeSelectbox + '\n' + SL_strategySelectbox + '\n' + SL_priceInputbox.value + '\n' + SL_deadlineInputbox.value +  '\n' + "이 맞습니까?";
+    var jsonStart = {"id" : this.props.id, "name" : sName, "status" : true, "coin" : sCoin, "exchange" : sExchange, "strategy" : sStrategy, "price" : sPrice, "startDate" : new Date(), "endDate": new Date(), "profit" : 100};
 
-    alert(string);
+    let alertMsg = sCoin + '\n' + sExchange + '\n' + sStrategy + '\n' + sPrice + '\n' + sDeadline +  '\n이 맞습니까?';
+
+    alert(alertMsg);
+
+    //웹소켓으로 textMessage객체의 값을 보낸다.
+    botHandle.send(JSON.stringify(jsonStart));
+    console.log(jsonStart + '전송');
   }
-
 
   render() {
     return (
       <div>
         <h4 className="Sales-color">
           Sales configuration
-                </h4>
+        </h4>
+        <div>
+          <input className="Sales-input" id="SL_nameInputbox" placeholder="이름" ></input>
+        </div>
 
         <div>
           <select className="Sales-box" id="SL_coinSelectbox" size='1'>
             {coinList.map((coin, i) => {
-              return (<option key={i}> {coin.name} </option>)
+              return (<option key={i}> {coin} </option>)
             })}
           </select>
         </div>
@@ -110,7 +56,7 @@ class Sales extends Component {
         <div>
           <select className="Sales-box" id="SL_exchangeSelectbox" size='1'>
             {exchangeList.map((exchange, i) => {
-              return (<option key={i}> {exchange.name} </option>)
+              return (<option key={i}> {exchange} </option>)
             })
             }
           </select>
@@ -118,11 +64,10 @@ class Sales extends Component {
 
         <div>
           <select className="Sales-box" id="SL_strategySelectbox" size='1'>
-            <option> 불린저밴드 </option>
-            <option> Momentum </option>
-            <option> 각종여러가지 </option>
-            <option> 골든크로스  </option>
-            <option> 돈잘버는법  </option>
+            <option>bollingerPatternNaked</option>
+            <option>Bollingertrade</option>
+            <option>trendFollowing</option>
+            <option>patterNakedTrade</option>
           </select>
         </div>
 
@@ -132,16 +77,10 @@ class Sales extends Component {
         <div>
           <input className="Sales-input" id="SL_deadlineInputbox" placeholder="마감 기한" ></input>
         </div>
-
-
         <div className="Sales-start-btn" id="Sale-start">
-          <button id="Sale-detail-btn" style={{ margin: '3px' }}>
-            상세 내역
-                </button>
-          <br></br>
-          <button id="Sale-start-btn" onClick={this.handleStartbtn} style={{ margin: '3px' }}>
+          <button id="Sale-start-btn" onClick={this.handleStartbtn} style={{ margin: '5px' }}>
             거래 시작
-                </button>
+          </button>
         </div>
       </div>
     );

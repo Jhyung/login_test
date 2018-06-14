@@ -27,12 +27,12 @@ const exchange_registered = [
 ]
 
 const bittrex = require('../node.bittrex.api');
-bittrex.options({ 
-  'apikey' : exchange_registered[0].API_KEY, 
-  'apisecret' : exchange_registered[0].SECRET_KEY, 
-  'stream' : false, 
-  'verbose' : false, 
-  'cleartext' : false 
+bittrex.options({
+  'apikey' : exchange_registered[0].API_KEY,
+  'apisecret' : exchange_registered[0].SECRET_KEY,
+  'stream' : false,
+  'verbose' : false,
+  'cleartext' : false
 });
 
 class WalletInfo extends Component{
@@ -81,27 +81,23 @@ class WalletInfo extends Component{
     render() {
         return(
             <div>
-                <div>
+                <div className="WalletInfo_title">
                     WalletInfo
                 </div>
+
                 <div>
-                <select className = "WalletInfo-exchangeSelectbox" id="WI_exchangeSelectbox" size = '1' onChange = {this.handleExchangeSelect} 
-                placeholder={'Select something'}> 
-                <option selected hidden disabled>Choose exchange</option>
+                <select className = "WalletInfo-exchangeSelectbox" id="WI_exchangeSelectbox" size = '1' onChange = {this.handleExchangeSelect}
+                placeholder={'Select something'}>
+                <option selected hidden disabled>Choose Exchange</option>
                 {exchange_registered.map((exchange, i) => {
                     return (<option key = {i}>{exchange.name}</option>)
                 })}
                 </select>
                 </div>
-                <div style={{marginTop : '10px'}}>{this.state.exchange}<br/>{this.state.content}</div>
-                
-
-
+              
             </div>
-
         );
     }
-
 }
 
 export default WalletInfo;

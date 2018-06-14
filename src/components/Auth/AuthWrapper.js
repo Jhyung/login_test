@@ -24,7 +24,7 @@ const ShadowedBox = styled.div`
 
 // 로고
 const LogoWrapper = styled.div`
-    margin-top: 10rem;
+    margin-top: 5rem;
     background: ${oc.cyan[6]};
     height: 5rem;
     display: flex;
@@ -60,6 +60,10 @@ const AuthWrapper = ({children}) => (
         </ShadowedBox>
     </Positioner>
 );
+
+const Background = styled.div`
+    backgournd: white;
+`;
 
 export default connect(
   null, (dispatch) => ({

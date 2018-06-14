@@ -1,76 +1,10 @@
 import React, { Component } from 'react';
 import './ChartSelect.css';
 
-const coinList = [
-  {
-    name: "ETH",
-    img: "eth_img.jpg",
-    link_whitepaper: "https://whitepaperbtc.com"
-  },
-  {
-    name: "BTC",
-    img: "btc_img.jpg",
-    link_whitepaper: "https://whitepaperbtc.com"
-  },
-  {
-    name: "BTG",
-    img: "btg_img.jpg",
-    link_whitepaper: "https://whitepaperbtc.com"
-  },
-  {
-    name: "XRP",
-    img: "xrp_img.jpg",
-    link_whitepaper: "https://whitepaperbtc.com"
-  },
-  {
-    name: "TRX",
-    img: "trx_img.jpg",
-    link_whitepaper: "https://whitepaperbtc.com"
-  },
-  {
-    name: "LTC",
-    img: "ltc_img.jpg",
-    link_whitepaper: "https://whitepaperbtc.com"
-  },
-  {
-    name: "DCT",
-    img: "dct_img.jpg",
-    link_whitepaper: "https://whitepaperbtc.com"
-  },
-  {
-    name: "ETC",
-    img: "etc_img.jpg",
-    link_whitepaper: "https://whitepaperbtc.com"
-  },
-  {
-    name: "QTUM",
-    img: "qtum_img.jpg",
-    link_whitepaper: "https://whitepaperbtc.com"
-  }
-]
 
-const exchangeList = [
-  {
-    name: "BITTREX",
-    //link?
-  },
-  {
-    name: "BITHUMB"
-  },
-  {
-    name: "BINANCE"
-  },
-  {
-    name: "KORBIT"
-  },
-  {
-    name: "COINONE"
-  }
-]
-
-const unitList = [
-  "5m", "10m", "15m", "30m", "1h", "6h", "1d", "1w", "1m", "1y"
-]
+const coinList = ["btc", "eth", "btg", "xrp", "eos", "ltc", "dog", "etc", "qtum"]
+const exchangeList = ["bithumb", "bittrex", "binance", "korbit", "coinone"]
+const unitList = ["5m", "10m", "15m", "30m", "1h", "6h", "1d", "1w", "1m", "1y"]
 
 class ChartSelect extends Component {
 
@@ -163,14 +97,14 @@ class ChartSelect extends Component {
       <div className="ChartSelect">
         <select id="CS_coinSelectbox" size='1' onChange={this.handleCoinSelect} style={{ marginRight: 10 }}>
           {coinList.map((coin, i) => {
-            return (<option key={i}>{coin.name}</option>);
+            return (<option key={i}>{coin}</option>);
           })}
         </select>
 
 
         <select id="CS_exchangeSelectbox" size='1' onChange={this.handleExchangeSelect} style={{ marginRight: 10 }}>
           {exchangeList.map((exchange, i) => {
-            return (<option key={i}> {exchange.name} </option>)
+            return (<option key={i}> {exchange} </option>)
           })
           }          
           </select>
@@ -182,7 +116,7 @@ class ChartSelect extends Component {
         </select>
 
         <p style={{ color: 'white' }}>
-          coin : {this.state.coin.name} --------- exchange : {this.state.exchange.name} --------- period unit : {this.state.unit}
+          coin : {this.state.coin} --------- exchange : {this.state.exchange} --------- period unit : {this.state.unit}
         </p>
         <h3 style={{ color: 'white' }}>[ INDEX : MarketSummary of BTC-{this.state.coin.name} ]</h3>
         <p style={{ color: 'white', fontSize: '15px' }}>

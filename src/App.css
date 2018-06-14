@@ -1,6 +1,19 @@
 .App {
   text-align: center;
+  background-color: #0f1316;
+  min-height: 100%;
+  min-width: 1024px;
 
+  width: 100%;
+  height: auto;
+
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.body {
+  background-color: #0f1316;
 }
 
 :root {
@@ -34,29 +47,6 @@
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #343a40;
-  height: 25px;
-  padding: 10px;
-  color: white;
-  align-content: center;
-  text-align-last: center;
-}
-
-.App-title {
-  font-size: 1.5em;
-  align-content: center;
-}
-
-.App-intro {
-  font-size: large;
-}
-
 ::-webkit-scrollbar{
   display: none;
 }
@@ -68,38 +58,46 @@
   grid-auto-rows: 110px;
 }
 .one {
-  border: 1px solid #343a40;
+  border: 10px #343a40;
   background-color: #343a40;
+  align-content: center;
+  padding-top: 15px;
+  padding-left: 4px;
   grid-row-start: 1;
-  grid-row-end: 3;
+  grid-row-end: 7;
   grid-column-start: 0;
   grid-column-end: 1;
   overflow: scroll;
 }
-.two {
-  border: 1px solid #343a40;
-  background-color: #343a40;
-  grid-row-start: 3;
-  grid-row-end: 7;
-  grid-column-start: 0;
-  grid-column-end: 1;
-}
 .three {
-  border: 1px solid #343a40;
+  border: 10px solid #0f1316;
   grid-row-start: span 6;
   grid-column-start: 1;
   grid-column-end: 6;
   background-color: #0f1316;
 }
 .four {
-  border: 1px solid #343a40;
+  border: 10px solid #343a40;
+  border-bottom: #c0cbd4;
+  background-color: #c0cbd4;
   grid-row-start: 1;
+  grid-row-end: 2;
+  grid-column-start: 6;
+  grid-column-end: 7;
+}
+.four_child {
+  border: 10px solid #343a40;
+  border-top: #c0cbd4;
+  background-color: #c0cbd4;
+  grid-row-start: 2;
   grid-row-end: 3;
   grid-column-start: 6;
   grid-column-end: 7;
 }
+
 .five {
-  border: 1px solid #343a40;
+  border: 10px solid #343a40;
+  background-color: #343a40;
   grid-row-start: 3;
   grid-row-end: 7;
   grid-column-start: 6;
@@ -109,6 +107,7 @@
 .App-scroll{
   overflow: scroll;
 }
+
 
 
 
